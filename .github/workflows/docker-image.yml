@@ -36,13 +36,16 @@ jobs:
       env: 
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
+        echo "building $NEW_VERSION"
         docker build -t emmoreno/docker-graphql:$NEW_VERSION .
         docker build -t emmoreno/docker-graphql:latest .
+        
     - name: Push Docker Image
       env: 
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
-        docker push emmoreno/docker-graphql:NEW_VERSION
+        echo "pushing $NEW_VERSION"
+        docker push emmoreno/docker-graphql:$NEW_VERSION
         docker push emmoreno/docker-graphql:latest
     
     #- name: Build the Docker image
